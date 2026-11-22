@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Filonido | Organizer da viaggio per cavi, caricabatterie e power bank</title>
+<meta name="description" content="Organizer da viaggio Filonido: tessuto resistente all’acqua, scomparti studiati per cavi, caricabatterie e power bank. Ogni filo ha un nido.">
+<meta name="theme-color" content="#0A3CFF">
+<!-- Stripe.js deve essere caricato direttamente da Stripe (mai in locale) -->
+<script src="https://js.stripe.com/dahlia/stripe.js"></script>
+<script src="assets/consent.js" defer></script>
+<style>
+:root{--blue:#0A3CFF;--navy:#061A55;--green:#00B86B;--mint:#E4FAF0;--ice:#F0F5FF;--ink:#0E1B3D;--mute:#53607F;--line:#DCE5FA;
+--bg:#fff;--card:#fff;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#fff}}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font:500 16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg);padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));-webkit-text-size-adjust:100%}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:560px;margin:0 auto;padding:0 18px}
+.bar{background:var(--green);color:#04281A;font-weight:700;font-size:13px;text-align:center;padding:7px 12px;padding-top:calc(7px + env(safe-area-inset-top,0px))}
+header{background:linear-gradient(135deg,var(--blue),#0626A8);position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+header img{height:34px;width:auto}
+.btn{display:block;width:100%;border:0;border-radius:12px;background:var(--blue);color:#fff;font:800 17px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:16px 20px;min-height:52px;text-align:center;text-decoration:none;cursor:pointer;box-shadow:0 8px 20px rgba(10,60,255,.28)}
+.btn:active{transform:scale(.98)}
+.btn.sm{width:auto;font-size:14px;padding:9px 16px;min-height:40px;background:#fff;color:var(--blue);box-shadow:none}
+:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+h1{font-size:clamp(30px,8.5vw,40px);line-height:1.08;font-weight:800;letter-spacing:-.02em;color:var(--navy)}
+h2{font-size:25px;line-height:1.15;font-weight:800;letter-spacing:-.01em;color:var(--navy);margin-bottom:14px}
+section{padding:34px 0}
+.hero{padding-top:22px}
+.hero p.lead{color:var(--mute);margin:12px 0 18px;font-size:17px}
+.vid{border-radius:18px;overflow:hidden;background:#000;aspect-ratio:4/5;position:relative;box-shadow:0 14px 34px rgba(6,26,85,.22)}
+.vid video{width:100%;height:100%;object-fit:cover}
+.buy{margin-top:18px;border:2px solid var(--blue);border-radius:18px;padding:18px;background:var(--ice)}
+.price{font-size:38px;font-weight:800;color:var(--navy);line-height:1}
+.price small{font-size:14px;font-weight:700;color:var(--mute);margin-left:6px}
+.ok{color:#047A47;font-weight:800;margin:6px 0 12px}
+.buy ul{list-style:none;padding:0;margin:0 0 14px;display:grid;gap:7px;font-size:15px}
+li.t::before{content:"✓";color:#fff;background:var(--green);border-radius:50%;width:20px;height:20px;display:inline-grid;place-items:center;font-size:12px;font-weight:800;margin-right:9px;vertical-align:1px}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;text-align:center;font-size:12px;font-weight:700;color:var(--mute)}
+.badges b{display:block;color:var(--blue);font-size:20px}
+.gal{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:0 18px 6px;-webkit-overflow-scrolling:touch}
+.gal img{flex:0 0 82%;scroll-snap-align:center;border-radius:16px;border:1px solid var(--line);aspect-ratio:1}
+.alt{background:var(--ice)}
+.feat{display:grid;gap:12px}
+.feat div{background:#fff;border:1px solid var(--line);border-left:5px solid var(--green);border-radius:14px;padding:14px 16px}
+.feat b{display:block;color:var(--navy);font-size:17px}
+.feat span{color:var(--mute);font-size:15px}
+.spec{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}
+.spec td{padding:10px 4px;border-bottom:1px solid var(--line)}
+.spec td:last-child{text-align:right;font-weight:800;color:var(--navy)}
+.stars{color:#FFB400;letter-spacing:2px}
+.rev{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.rev .v{color:#047A47;font-size:13px;font-weight:700}
+details{border-bottom:1px solid var(--line);padding:14px 0}
+summary{font-weight:800;color:var(--navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";color:var(--blue);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--mute);margin-top:8px}
+#ordina{background:linear-gradient(180deg,var(--ice),#fff)}
+#checkout-form{min-height:120px}
+.err{color:#B3261E;font-weight:700;margin-top:10px}
+.safe{font-size:13px;color:var(--mute);text-align:center;margin-top:12px}
+footer{background:var(--navy);color:#C9D6FF;font-size:14px;padding:30px 0}
+footer img{height:38px;width:auto;margin-bottom:14px}
+footer a{color:#fff}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:14px;box-shadow:0 -6px 20px rgba(6,26,85,.08)}
+.sticky .p{font-weight:800;font-size:22px;color:var(--navy);line-height:1.1}
+.sticky .p small{display:block;font-size:11px;color:var(--mute);font-weight:700}
+.sticky .btn{flex:1}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn:active{transform:none}}
+.sel{margin:0 0 14px}.sl{font-size:14px;font-weight:700;color:var(--mute);margin:10px 0 6px}.sl b{color:var(--navy)}
+.sw{display:flex;gap:10px;flex-wrap:wrap}.sw button{width:44px;height:44px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line);cursor:pointer;padding:0}
+.sw button[aria-pressed=true]{box-shadow:0 0 0 3px var(--blue)}
+.qty{display:inline-flex;align-items:center;border:2px solid var(--line);border-radius:12px;background:#fff}.qty button{width:48px;height:46px;border:0;background:none;font:800 22px system-ui,sans-serif;color:var(--blue);cursor:pointer}.qty button:disabled{color:#B8C2DC;cursor:default}.qty output{min-width:34px;text-align:center;font-weight:800;color:var(--navy)}
+.tot{margin-top:12px;font-weight:800;color:var(--navy);font-size:18px}.tot small{font-weight:700;color:var(--mute);font-size:13px}
+</style>
+</head>
+<body>
+<div class="bar">Consegna in tutta Italia · Reso entro 30 giorni</div>
+<header><div class="wrap"><img src="assets/logo.png" alt="Filonido" width="85" height="34"><a class="btn sm" href="#ordina" data-order>Ordina</a></div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+<h1>Ogni filo ha un nido.</h1>
+<p class="lead">L’organizer da viaggio per caricabatterie, power bank e cavi. Tessuto resistente all’acqua, scomparti su misura e tutto sempre in ordine.</p>
+<div class="vid"><video src="assets/video.mp4" poster="assets/poster.jpg" muted loop playsinline autoplay preload="metadata" controls></video></div>
+<div class="buy">
+<div class="price">€8,99</div>
+<div class="ok">Disponibile</div>
+<ul>
+<li class="t">Tessuto resistente all’acqua</li>
+<li class="t">Scomparti organizzati per cavi, caricabatterie e power bank</li>
+<li class="t">Chiusura zip scorrevole e cinturino da polso</li>
+<li class="t">Compatto: 19 × 12 × 3,5 cm</li>
+</ul>
+<div class="sel"></div>
+<a class="btn" href="#ordina" data-order>Ordina ora</a>
+<div class="badges"><div><b>🔒</b>Pagamento sicuro</div><div><b>↩</b>Reso entro 30 giorni</div><div><b>💧</b>Resistente all’acqua</div></div>
+</div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+<h2>Addio al groviglio di cavi nello zaino</h2>
+<p style="color:var(--mute);margin-bottom:16px">Caricabatterie, cavi e power bank finiscono sempre mescolati sul fondo della borsa. Filonido dà a ogni accessorio il suo posto, così lo trovi subito, in viaggio, in ufficio o a casa.</p>
+<div class="gal">
+<img src="assets/p4.webp" alt="Organizer Filonido aperto con power bank, cavi e auricolari" width="800" height="800" loading="lazy">
+<img src="assets/p1.webp" alt="Organizer Filonido grigio con cinturino" width="800" height="800" loading="lazy">
+<img src="assets/p5.webp" alt="Acqua che scivola sul tessuto resistente dell’organizer" width="800" height="800" loading="lazy">
+<img src="assets/p2.webp" alt="Organizer Filonido aperto e vari colori" width="800" height="800" loading="lazy">
+</div>
+</div></section>
+
+<section><div class="wrap">
+<h2>Pensato per ogni giorno</h2>
+<div class="feat">
+<div><b>Resistente all’acqua</b><span>Il tessuto respinge spruzzi e gocce, per proteggere i tuoi dispositivi dagli imprevisti.</span></div>
+<div><b>Scomparti organizzati</b><span>Fascetta elastica per power bank e caricabatterie, tasca in rete per auricolari e cavi sottili.</span></div>
+<div><b>Zip scorrevole</b><span>Si apre e si chiude con una mano, senza inceppamenti.</span></div>
+<div><b>Piccolo, sta ovunque</b><span>Entra in zaino, borsa o valigia. Con il cinturino lo porti anche in mano.</span></div>
+</div>
+<table class="spec">
+<tr><td>Modello</td><td>FLN-001</td></tr>
+<tr><td>Dimensioni</td><td>19 × 12 × 3,5 cm</td></tr>
+<tr><td>Materiale</td><td>Tessuto resistente all’acqua</td></tr>
+<tr><td>Chiusura</td><td>Zip scorrevole</td></tr>
+</table>
+<img src="assets/p3.webp" alt="Scheda tecnica Filonido modello FLN-001 con dimensioni" width="800" height="800" loading="lazy" style="margin-top:16px;border-radius:16px;border:1px solid var(--line)">
+</div></section>
+
+<section class="alt" id="recensioni" hidden><div class="wrap">
+<h2>Recensioni dei clienti</h2>
+<p id="rsum" style="margin-bottom:14px"></p>
+<div id="rlist"></div>
+</div></section>
+
+<section><div class="wrap">
+<h2>Domande frequenti</h2>
+<details><summary>Cosa posso metterci dentro?</summary><p>Power bank, caricabatterie, cavi USB, auricolari, schede SD e piccoli accessori elettronici.</p></details>
+<details><summary>È davvero resistente all’acqua?</summary><p>Il tessuto è resistente all’acqua e protegge da spruzzi e gocce. Non è pensato per essere immerso.</p></details>
+<details><summary>Quali sono le dimensioni?</summary><p>19 cm di altezza, 12 cm di larghezza e 3,5 cm di spessore.</p></details>
+<details><summary>Come pago? È sicuro?</summary><p>Il pagamento avviene su Stripe, con crittografia di livello bancario. Non vediamo né conserviamo i dati della tua carta.</p></details>
+<details><summary>Posso restituirlo?</summary><p>Sì. Hai 30 giorni dalla consegna per restituirlo. Leggi la pagina <a href="resi.html">Resi e Rimborsi</a> o scrivici a filonidoitalia@gmail.com.</p></details>
+<details><summary>Spedite in tutta Italia?</summary><p>Sì, consegniamo in tutta Italia.</p></details>
+<details><summary>Quanti pezzi posso ordinare?</summary><p>Fino a 3 pezzi per ordine, nel colore che preferisci.</p></details>
+</div></section>
+
+<section id="ordina"><div class="wrap">
+<h2>Completa il tuo ordine</h2>
+<div class="sel"></div>
+<div id="checkout-form"></div>
+<p class="err" id="err" hidden></p>
+<p class="safe">🔒 Pagamento protetto da Stripe<br>Ordinando accetti i <a href="termini.html">Termini e Condizioni</a> e la <a href="privacy.html">Privacy Policy</a>.</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+<img src="assets/logo.png" alt="Filonido" width="95" height="38">
+<p><b style="color:#fff">Ogni filo ha un nido</b></p>
+<p style="margin-top:10px">Filonido · Via Filandro Quarantotti 42, 66100 Chieti<br>
+<a href="mailto:filonidoitalia@gmail.com">filonidoitalia@gmail.com</a> · <a href="tel:+393501706492">+39 350 1706492</a></p>
+<p style="margin-top:10px"><a href="privacy.html">Privacy Policy</a> · <a href="termini.html">Termini e Condizioni</a> · <a href="resi.html">Resi e Rimborsi</a> · <a href="#" data-cookie>Gestisci cookie</a></p>
+<p style="margin-top:12px;font-size:12px">© 2026 Filonido. Tutti i diritti riservati.</p>
+</div></footer>
+
+<div class="sticky"><div class="p">€8,99</div><a class="btn" href="#ordina" data-order>Ordina ora</a></div>
+
+<script>
+// ---- CONFIGURAZIONE ----
+var pk_test_51UUp6VAcUX6qZXFVmXDvccFspka2GAhhPsxoA5B70a8AjsOwjXJcBWW7RX4FoQj2r0MTSERmPqJydutZHZoZKZtS00kkspROwP = "pk_test_..."; // Chiave pubblicabile Stripe (vedi STRIPE_INTEGRATION_TODO.md)
+// Recensioni REALI dei clienti (lascia vuoto finché non le hai). Esempio:
+// {n:"Giulia M.", s:5, t:"Titolo", b:"Testo della recensione", v:true}
+var REVIEWS = [];
+
+// ---- RECENSIONI ----
+(function(){
+  if(!REVIEWS.length) return;
+  var avg = REVIEWS.reduce(function(a,r){return a+r.s},0)/REVIEWS.length;
+  var st = function(n){return "★★★★★".slice(0,n)+"☆☆☆☆☆".slice(0,5-n)};
+  document.getElementById("rsum").innerHTML = '<span class="stars">'+st(Math.round(avg))+'</span> <b>'+avg.toFixed(1).replace(".",",")+' su 5</b> · '+REVIEWS.length+' recensioni';
+  document.getElementById("rlist").innerHTML = REVIEWS.map(function(r){
+    var d=document.createElement("div");d.className="rev";
+    d.innerHTML='<div class="stars"></div><b></b><p></p><div class="v"></div>';
+    d.children[0].textContent=st(r.s);d.children[1].textContent=r.t;d.children[2].textContent=r.b;
+    d.children[3].textContent=(r.v?"Acquisto verificato · ":"")+r.n;
+    return d.outerHTML;
+  }).join("");
+  document.getElementById("recensioni").hidden = false;
+})();
+
+// ---- SELEZIONE COLORE E QUANTITÀ ----
+var PRICE = 8.99, MAXQ = 3;
+var COLORS = [["grigio","Grigio","#8C8F96"],["nero","Nero","#1E1E22"],["blu","Blu navy","#1F3A73"],["azzurro","Azzurro","#2E9BE6"],["rosso","Rosso","#B3262E"],["viola","Viola","#6B2F7B"]];
+var sel = {color:"grigio", qty:1};
+function euro(n){ return "€" + n.toFixed(2).replace(".", ","); }
+function renderSel(){
+  var nm = COLORS.filter(function(c){return c[0]===sel.color})[0][1];
+  var h = '<div class="sl">Colore: <b>'+nm+'</b></div><div class="sw">' + COLORS.map(function(c){
+    return '<button type="button" data-c="'+c[0]+'" aria-label="'+c[1]+'" aria-pressed="'+(c[0]===sel.color)+'" style="background:'+c[2]+'"></button>';
+  }).join("") + '</div><div class="sl">Quantità (massimo '+MAXQ+')</div><div class="qty"><button type="button" data-q="-1" aria-label="Diminuisci" '+(sel.qty<=1?"disabled":"")+'>−</button><output>'+sel.qty+'</output><button type="button" data-q="1" aria-label="Aumenta" '+(sel.qty>=MAXQ?"disabled":"")+'>+</button></div><div class="tot">Totale: '+euro(PRICE*sel.qty)+' </div>';
+  document.querySelectorAll(".sel").forEach(function(b){ b.innerHTML = h; });
+}
+document.addEventListener("click", function(e){
+  var b = e.target.closest("[data-c],[data-q]"); if(!b) return;
+  if(b.dataset.c) sel.color = b.dataset.c;
+  else sel.qty = Math.min(MAXQ, Math.max(1, sel.qty + parseInt(b.dataset.q,10)));
+  renderSel(); if(started) restartCheckout();
+});
+renderSel();
+
+// ---- STRIPE CHECKOUT (form incorporato) ----
+var started = false, form = null;
+var appearance = {"theme":"stripe","labels":"auto","inputs":"spaced","variables":{"borderRadius":"4px","colorBackground":"#ffffff","colorDanger":"#df1b41","colorPrimary":"#0570de","colorSuccess":"#00c853","colorText":"#30313d","fontFamily":"default","fontSizeBase":"16px","spacingUnit":"4px"}};
+
+function restartCheckout(){
+  try{ if(form && form.destroy) form.destroy(); }catch(e){}
+  document.getElementById("checkout-form").innerHTML = "";
+  started = false; startCheckout();
+}
+async function startCheckout(){
+  if(started) return; started = true;
+  document.getElementById("err").hidden = true;
+  try{
+    try{ localStorage.setItem("fln_order", JSON.stringify({value: Math.round(PRICE*sel.qty*100)/100})); }catch(e){}
+    if(window.flnTrack) flnTrack("InitiateCheckout", {value: PRICE*sel.qty, currency: "EUR"});
+    var stripe = Stripe(pk_test_51UUp6VAcUX6qZXFVmXDvccFspka2GAhhPsxoA5B70a8AjsOwjXJcBWW7RX4FoQj2r0MTSERmPqJydutZHZoZKZtS00kkspROwP);
+    var clientSecret = fetch("/api/create-checkout-session", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(sel)})
+      .then(function(r){ if(!r.ok) throw new Error("server"); return r.json(); })
+      .then(function(j){ return j.client_secret; });
+    var checkout = stripe.initCheckoutFormSdk({clientSecret: clientSecret, appearance: appearance});
+    form = checkout.createForm({layout:"expanded"});
+    form.mount("#checkout-form");
+    var res = await checkout.loadActions();
+    if(res.type === "success"){
+      form.on("confirm", async function(event){
+        try{ await res.actions.confirm({formConfirmEvent: event}); }
+        catch(e){ console.error("Payment confirmation error:", e); }
+      });
+    }
+  }catch(e){
+    started = false;
+    var el = document.getElementById("err");
+    el.textContent = "Non riusciamo a caricare il pagamento. Ricarica la pagina o scrivici a filonidoitalia@gmail.com.";
+    el.hidden = false;
+  }
+}
+document.querySelectorAll("[data-order]").forEach(function(a){ a.addEventListener("click", startCheckout); });
+if(location.hash === "#ordina") startCheckout();
+</script>
+</body>
+</html>
